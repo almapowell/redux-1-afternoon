@@ -4,11 +4,22 @@ import { Link } from "react-router-dom";
 class Instructions extends Component {
   constructor(props) {
     super(props);
+    const reduxState = store.getState()
     this.state = {
-      instructions: [],
+      instructions: reduxState.ingredients,
       input: ""
     };
   }
+
+  componentDidMount() {
+    store.subscribe(() => {
+      const reduxState = store.getState()
+      this.setState({
+        ingredients: reduxState.ingredients
+      })
+    })
+  }
+
   handleChange(val) {
     this.setState({
       input: val
